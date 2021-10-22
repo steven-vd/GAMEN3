@@ -1,0 +1,17 @@
+{
+    "name": "GAMEN3.Game",
+    "rootNamespace": "",
+    "references": [
+        "GUID:393b4fc014a0a584897a46823f84f42b",
+        "GUID:a61bd060ad20ec74d938f33a3531d980"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
