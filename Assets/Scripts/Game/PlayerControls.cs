@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerControls : MonoBehaviour {
 
@@ -10,6 +11,8 @@ public class PlayerControls : MonoBehaviour {
 	public float moveSpeed;
 	public float gravity;
 	public float jumpPower;
+
+	public Slider healthBar;
 
 	[ReadOnly]
 	public float rotX, rotY;
@@ -23,6 +26,8 @@ public class PlayerControls : MonoBehaviour {
 
 		Cursor.lockState = CursorLockMode.Locked;
 		Cursor.visible = false;
+
+		healthBar.value = 100;
 	}
 
 	void Update() {
