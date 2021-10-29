@@ -11,6 +11,7 @@ public static class InputManager {
 	public static List<KeyCode> WalkBackward = new List<KeyCode>(new KeyCode[] { KeyCode.S });
 	public static List<KeyCode> WalkRight = new List<KeyCode>(new KeyCode[] { KeyCode.D });
 	public static List<KeyCode> Jump = new List<KeyCode>(new KeyCode[] { KeyCode.Space });
+	public static List<KeyCode> Interact = new List<KeyCode>(new KeyCode[] { KeyCode.E });
 
 	public static bool GetKey(List<KeyCode> control) {
 		foreach (KeyCode key in control) {

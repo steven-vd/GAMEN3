@@ -48,6 +48,17 @@ public class PlayerControls : MonoBehaviour {
 			velocity.y += jumpPower;
 		}
 
+		if (InputManager.GetKeyDown(InputManager.Interact)) {
+			RaycastHit hit;
+			int layerMask = ~0;
+			if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 3.0f, layerMask)) {
+				Interactable interactable = hit.transform.GetComponent<Interactable>();
+				if (interactable != null) {
+					interactable.onInteract.Invoke();
+				}
+			}
+		}
+
 		float mouseMoveX = Input.GetAxis("Mouse X") * InputManager.MouseSensibility * Time.deltaTime;
 		float mouseMoveY = Input.GetAxis("Mouse Y") * InputManager.MouseSensibility * Time.deltaTime;
 
@@ -66,7 +77,7 @@ public class PlayerControls : MonoBehaviour {
 		RaycastHit hit;
 		int layerMask = ~0;
 		grounded = false;
-		if (velocity.y < 0 && Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 10.0f, layerMask)) {
+		if (velocity.y < 0 && Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, 1.1f, layerMask)) {
 			grounded = true;
 			velocity.y = 0;
 		}
