@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerControls : MonoBehaviour {
+public class PlayerControls : MonoBehaviour, ISaveable {
+
+	public static PlayerControls Instance;
 
 	public Camera cam;
 	public CharacterController controller;
@@ -20,6 +23,10 @@ public class PlayerControls : MonoBehaviour {
 	public Vector3 velocity = Vector3.zero;
 	[ReadOnly]
 	public bool grounded = false;
+
+	void Awake() {
+		Instance = this;
+	}
 
 	void Start() {
 		rotX = transform.eulerAngles.x;
@@ -42,6 +49,13 @@ public class PlayerControls : MonoBehaviour {
 		}
 		if (InputManager.GetKey(InputManager.WalkRight)) {
 			controller.Move(transform.right * moveSpeed * Time.deltaTime);
+		}
+
+		if (InputManager.GetKeyDown(InputManager.Quicksave)) {
+			SaveManager.Save();
+		}
+		if (InputManager.GetKeyDown(InputManager.Quickload)) {
+			SaveManager.Load();
 		}
 
 		if (grounded && InputManager.GetKeyDown(InputManager.Jump)) {
@@ -83,6 +97,48 @@ public class PlayerControls : MonoBehaviour {
 		}
 
 		controller.Move(velocity);
+	}
+
+	public void Save(BinaryWriter w) {
+		//health
+		w.Write(healthBar.value);
+		//pos
+		w.Write(transform.position.x);
+		w.Write(transform.position.y);
+		w.Write(transform.position.z);
+		//player rot
+		w.Write(transform.localRotation.x);
+		w.Write(transform.localRotation.y);
+		w.Write(transform.localRotation.z);
+		w.Write(transform.localRotation.w);
+		//cam rot
+		w.Write(rotX);
+	}
+
+	public void Load(BinaryReader r) {
+		//health
+		healthBar.value = r.ReadSingle();
+		//pos
+		{
+			float posX = r.ReadSingle();
+			float posY = r.ReadSingle();
+			float posZ = r.ReadSingle();
+			controller.enabled = false;
+			transform.position = new Vector3(posX, posY, posZ);
+			controller.enabled = true;
+		}
+		//player rot
+		{
+			float rotX = r.ReadSingle();
+			float rotY = r.ReadSingle();
+			float rotZ = r.ReadSingle();
+			float rotW = r.ReadSingle();
+			transform.localRotation = new Quaternion(rotX, rotY, rotZ, rotW);
+		}
+		//cam rot
+		{
+			rotX = r.ReadSingle();
+		}
 	}
 
 }
