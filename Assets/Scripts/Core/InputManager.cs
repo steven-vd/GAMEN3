@@ -16,6 +16,8 @@ public static class InputManager {
 	public static List<KeyCode> Quicksave = new List<KeyCode>(new KeyCode[] { KeyCode.F8 });
 	public static List<KeyCode> Quickload = new List<KeyCode>(new KeyCode[] { KeyCode.F9 });
 
+	public static List<KeyCode> TogglePause = new List<KeyCode>(new KeyCode[] {KeyCode.Escape, KeyCode.Pause});
+
 	public static bool GetKey(List<KeyCode> control) {
 		foreach (KeyCode key in control) {
 			if (Input.GetKey(key)) {

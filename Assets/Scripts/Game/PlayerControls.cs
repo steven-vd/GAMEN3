@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,6 +14,8 @@ public class PlayerControls : MonoBehaviour, ISaveable {
 	public float jumpPower;
 
 	public Slider healthBar;
+
+	public PauseMenu pauseMenu;
 
 	[ReadOnly]
 	public float rotX, rotY;
@@ -60,6 +60,14 @@ public class PlayerControls : MonoBehaviour, ISaveable {
 
 		if (grounded && InputManager.GetKeyDown(InputManager.Jump)) {
 			velocity.y += jumpPower;
+		}
+
+		if(InputManager.GetKeyDown(InputManager.TogglePause)) {
+			if (pauseMenu.gameObject.activeSelf) {
+				pauseMenu.ClosePauseMenu();
+			} else {
+				pauseMenu.OpenPauseMenu();
+			}
 		}
 
 		if (InputManager.GetKeyDown(InputManager.Interact)) {

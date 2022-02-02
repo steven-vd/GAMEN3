@@ -29,6 +29,12 @@ public class Rotator : MonoBehaviour, ISaveable {
 			w.Write(rotateTo.y);
 			w.Write(rotateTo.z);
 		}
+		//Current Rotation
+		{
+			w.Write(transform.rotation.x);
+			w.Write(transform.rotation.y);
+			w.Write(transform.rotation.z);
+		}
 	}
 
 	public void Load(BinaryReader r) {
@@ -47,7 +53,13 @@ public class Rotator : MonoBehaviour, ISaveable {
 			float rotY = r.ReadSingle();
 			float rotZ = r.ReadSingle();
 			rotateTo = new Vector3(rotX, rotY, rotZ);
-			transform.rotation = Quaternion.Euler(rotateTo);
+		}
+		//Current Rotation
+		{
+			float rotX = r.ReadSingle();
+			float rotY = r.ReadSingle();
+			float rotZ = r.ReadSingle();
+			transform.rotation = Quaternion.Euler(new Vector3(rotX, rotY, rotZ));
 		}
 	}
 
