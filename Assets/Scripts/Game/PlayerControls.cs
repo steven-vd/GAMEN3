@@ -91,7 +91,7 @@ public class PlayerControls : MonoBehaviour, ISaveable {
 		RaycastHit hit;
 		int layerMask = ~0;
 		grounded = false;
-		if (velocity.y < 0 && Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, 1.1f, layerMask)) {
+		if (velocity.y < 0 && Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, 1.2f, layerMask)) {
 			grounded = true;
 			velocity.y = 0;
 		}
