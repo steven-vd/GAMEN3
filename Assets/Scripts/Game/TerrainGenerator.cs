@@ -54,20 +54,12 @@ public class TerrainGenerator : MonoBehaviour {
 				float normX = x * 1.0f / (td.alphamapWidth - 1);
 				float normY = y * 1.0f / (td.alphamapHeight - 1);
 
-				if (true) {
-					if (td.GetHeight(x, y) > 30) {
-						map[y, x, 0] = 1;
-						map[y, x, 1] = 0;
-					} else {
-						map[y, x, 0] = 0;
-						map[y, x, 1] = 1;
-					}
+				if (td.GetHeight(x, y) > 30) {
+					map[y, x, 0] = 1;
+					map[y, x, 1] = 0;
 				} else {
-					float angle = td.GetSteepness(normX, normY);
-
-					float frac = angle / 90.0f;
-					map[y, x, 0] = frac;
-					map[y, x, 1] = 1 - frac;
+					map[y, x, 0] = 0;
+					map[y, x, 1] = 1;
 				}
 			}
 		}
